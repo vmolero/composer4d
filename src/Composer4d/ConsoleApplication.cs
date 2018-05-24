@@ -5,6 +5,7 @@ namespace Composer4d
 {
     class ConsoleApplication
     {
+        private Composer4d composer4d;
         static void Main(string[] args)
         {
             string[] arguments = System.Environment.GetCommandLineArgs();
@@ -12,7 +13,7 @@ namespace Composer4d
             //  use --dproj to force
             // extract dependencies
             CommandBase command = new CommandBase();
-            command.run(arguments);
+            Console.WriteLine(command.run(arguments));
         }
     }
 }
