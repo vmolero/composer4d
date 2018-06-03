@@ -17,7 +17,7 @@ namespace Composer4d
             //  use --dproj to force
             // extract dependencies
             
-            CommandBase command = new CommandBase();
+            Runnable command = new ConsoleCommand();
             
             Console.WriteLine(command.run(arguments));
         }

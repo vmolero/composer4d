@@ -2,29 +2,9 @@ using System;
 
 namespace Command
 {
-  public class UpdateCommand : Runnable, Configurable
+  public class UpdateCommand : BaseCommand, Runnable
   {
-    private string name;
-    public string Name {
-      set { name = value.ToLower(); }
-    }
-    private string help;
-    public string Help {
-      set { help = value; }
-    }
-    private string[] aliases;
-    public string[] Aliases {
-      set { aliases = value; }
-    }
-    private string[] definition;
-    public string[] Definition {
-      set { definition = value; }
-    }
-    private string description;
-    public string Description {
-      set { description = value; }
-    }
-    public void configure()
+    public override void configure()
     {
       this.Name = "update";
       this.Aliases = new string[] {"upgrade"};
