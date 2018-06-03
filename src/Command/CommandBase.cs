@@ -1,26 +1,25 @@
-﻿using System;
+using System;
 
 namespace Command
 {
-    public class CommandBase
+    public class CommandBase : Runnable
     {   
         // System.AppContext;
         // EnvironmentVariableTarget
         private const int MIN_ARGS = 2;
         public string run(string[] arguments) {
-            string command = "";
+            Runnable command;
+            string output = "";
             if (arguments.Length < MIN_ARGS) {
                 return this.getHelp();
             }
-            switch (arguments[1].ToLower())
-            {
-                case "update":
-                    command = "update";
-                    break;
-                default:
-                    return this.getHelp();
+            try {
+                command = this.getCommandName(arguments);
+                output = command.run(arguments);
+            } catch (ArgumentException wrongArgument) {
+                return wrongArgument.Message + "\n" + this.getHelp();
             }
-            return command;
+            return output;
         }
 
     private string getHelp()
@@ -28,8 +27,18 @@ namespace Command
       return "Usage: composer4d <command> [options]";
     }
 
-    public string sayHi(string name) {
-            return "Hi " + name;
+    public Runnable getCommandName(string[] arguments)
+    {
+        Runnable command;
+        switch (arguments[1].ToLower())
+        {
+            case "update":
+                command = new UpdateCommand();
+                break;
+            default:
+                throw new ArgumentException("Wrong parameters.");
         }
+        return command;
+    }
     }
 }
