@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Command
 {
@@ -12,7 +13,7 @@ namespace Command
       this.Description = "The <info>update</info> command reads the composer.json file from the current directory, processes it, and updates, removes or installs all the dependencies.";
     }
 
-    public string run(string[] arguments)
+    public string run(IList<string> arguments)
     {
       this.configure();
       return this.help;

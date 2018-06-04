@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace Command
 {
   public interface Runnable {
-    string run(string[] arguments);
+    string run(IList<string> arguments);
   }
 }
