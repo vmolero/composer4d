@@ -1,5 +1,6 @@
 namespace Composer4d {
   public class Composer4d {
-    const int VERSION = 0;
+    public const string NAME = "Composer4D";
+    public const string VERSION = "0.1";
   }
 }
