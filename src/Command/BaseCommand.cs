@@ -9,10 +9,12 @@ namespace Command
     private const string INIT = "init";
     private const string UPDATE = "update";
     public const string ACTION_ARG = "<action>";
-    public const string FILE_ARG = "<file>";
+    public const string FILE_ARG = "FILE";
     protected const string HELP = @"Composer for Delphi (Composer4D).
 Usage:
-  composer4d " + ACTION_ARG + @" [" + FILE_ARG + @"]
+  composer4d init [FILE]
+  composer4d update
+  composer4d install
   composer4d (-h | --help)
   composer4d --version
 
@@ -29,7 +31,33 @@ Options:
     public static Runnable create(CommandParser parser, string[] args)
     {
       Runnable command = new NoopCommand();
-      arguments = parser.Apply(HELP, args);
+      BaseCommand.arguments = parser.Apply(HELP, args);
+      ValueObject v;
+      BaseCommand.arguments.TryGetValue(INIT, out v);
+      if (v.IsTrue) {
+        command = new InitCommand();
+      }
+      BaseCommand.arguments.TryGetValue(UPDATE, out v);
+      if (v.IsTrue) {
+        command = new UpdateCommand();
+      }
+      /*foreach (var a in BaseCommand.arguments) {
+        ValueObject v = a.Value;
+        if (v.IsFalse) continue;
+        output += "(" + a.Key + ", " + a.Value + ")";
+        string key = a.Key;
+        
+        bool active = v.IsTrue;
+        switch (key) {
+          case INIT:
+            
+            break;
+          case UPDATE:
+            command = new UpdateCommand();
+            break;
+        }
+      }*/
+      /*Console.WriteLine(output);
       string action = arguments[ACTION_ARG].ToString().ToLower();
       switch (action) {
         case INIT:
@@ -42,7 +70,7 @@ Options:
         default:
           // command = new HelpCommand();
           break;
-      }
+      }*/
 
       return command;
     }
